@@ -4,21 +4,21 @@ const client = new MongoClient(URL);
 
 let dbConnection;
 const connectToDb = async () => {
-    try {
-      const client = await MongoClient.connect(URL);
+  try {
+    const client = await MongoClient.connect(URL);
 
-      dbConnection = client.db();
-    } catch (err) {
-      console.error('Failed to connect to MongoDB: ', err);
-      throw err;
-    }
-  };  
+    dbConnection = client.db();
+  } catch (err) {
+    console.error("Failed to connect to MongoDB: ", err);
+    throw err;
+  }
+};
 
 const getDb = () => {
-if (!dbConnection) {
-    throw new Error('Error connecting to database.');
-    }
-    return dbConnection;
+  if (!dbConnection) {
+    throw new Error("Error connecting to database.");
+  }
+  return dbConnection;
 };
 
 export { connectToDb, getDb };
