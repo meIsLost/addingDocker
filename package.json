@@ -2,17 +2,21 @@
   "name": "travel-destinations",
   "module": "index.js",
   "type": "module",
+  "scripts": {
+    "dev": "npx concurrently --kill-others \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev"
+  },
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "bun-types": "latest",
-    "eslint": "^9.11.1"
+    "concurrently": "^9.0.1",
+    "eslint": "^9.11.1",
+    "prettier": "^3.3.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "prettier": "^3.3.3"
   }
 }
