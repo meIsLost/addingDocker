@@ -1,4 +1,4 @@
-/** @type {import("eslint").Linter.Config} */
+/*** @type {import("eslint").Linter.Config}*/
 const config = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -6,7 +6,6 @@ const config = {
   },
   plugins: ["@typescript-eslint"],
   extends: [
-    "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
   ],
@@ -24,13 +23,14 @@ const config = {
       },
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-    "@typescript-eslint/no-misused-promises": [
-      2,
-      {
-        checksVoidReturn: { attributes: false },
-      },
-    ],
+    "@typescript-eslint/no-misused-promises": [0],
   },
+  ignorePatterns: [
+    ".eslintrc.cjs",
+    "loginRouter.js",
+    "tailwind.config.ts",
+    "postcss.config.js",
+  ],
 };
 
 module.exports = config;

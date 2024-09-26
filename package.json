@@ -5,16 +5,24 @@
   "scripts": {
     "dev": "npx concurrently --kill-others \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev",
-    "dev:server": "cd server && npm run dev"
+    "dev:server": "cd server && npm run dev",
+    "eslint": "eslint .",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write ."
   },
   "devDependencies": {
-    "@types/eslint": "^9.6.1",
+    "@eslint/js": "^9.11.1",
+    "@types/eslint": "^8.56.12",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "bun-types": "latest",
     "concurrently": "^9.0.1",
-    "eslint": "^9.11.1",
-    "prettier": "^3.3.3"
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.7.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

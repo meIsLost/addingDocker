@@ -9,12 +9,12 @@ import { logger } from "../common/logger.js";
 
 /**
  * @param {unknown} error
- * @param {Request} req
+ * @param {Request} _req
  * @param {Response} res
- * @param {NextFunction} next
+ * @param {NextFunction} _next
  */
 
-export function errorHandlerMiddleware(error, req, res, next) {
+export function errorHandlerMiddleware(error, _req, res, _next) {
   logger.error("API Error", { error });
 
   if (error instanceof ApiError) {
