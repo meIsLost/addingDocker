@@ -18,7 +18,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = html`
         />
       </a>
     </div>
-    <h1 class="text-red-400 font-bold">Hello Vite!</h1>
+    <h1 class="text-pink-200 font-bold">Hello Vite!</h1>
     <h1>Vite + TypeScript</h1>
     <div class="card">
       <button id="counter" type="button"></button>
