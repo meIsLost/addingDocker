@@ -11,6 +11,7 @@ export const destinationRouter = express.Router();
 
 destinationRouter.get("/destinations", async (_req, res, next) => {
   try {
+    await connect();
     const destinations = await destinationModel.find();
 
     logger.info("getAllDestinations: ", destinations);

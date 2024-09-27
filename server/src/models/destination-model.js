@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
 
-const destinationSchema = new mongoose.Schema({
+export const destinationSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
@@ -28,10 +28,12 @@ const destinationSchema = new mongoose.Schema({
   location: {
     type: String,
     required: true,
+    index: true,
   },
   country: {
     type: String,
     required: true,
+    index: true,
   },
   imageUrl: {
     type: String,
