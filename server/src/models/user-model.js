@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs';
 import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
 
@@ -13,7 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -26,14 +27,28 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  }
   },
+ {
+  timestamps: true 
+});
+
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 export const userModel = mongoose.model("user", userSchema);
 
 export const userSchemaValidator = z.object({
   name: z.string().min(1),
-  userName: z.string().min(1),
+  username: z.string().min(1),
   email: z.string().email(),
   password: z.string().min(1).max(20),
 });

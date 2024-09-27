@@ -1,46 +1,34 @@
-import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import passport from "passport";
-import passportConfig from "../middlewares/passport.js";
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import { userModel } from '../../models/user-model.js';
+import { logger } from '../../common/logger.js';
+import { ApiError } from '../../common/api-error.js';
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
-passportConfig(passport);
 
-router.get(
-  "/user",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const { id, email } = req.user;
-    res.json({ id, email });
-  },
-);
-
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await getUserByEmail(email);
-
+    const user = await userModel.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      throw new ApiError(404, 'User not found.');
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (isMatch) {
-      const payload = { id: user.id, email: user.email };
-
-      const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
-      });
-
-      res.json({ message: "Logged in", token: "Bearer " + token });
-    } else {
-      res.status(400).json({ message: "Incorrect password" });
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      throw new ApiError(400, 'Incorrect password.');
     }
+    const payload = { id: user.id, email: user.email };
+    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+
+    logger.info('User logged in', { email });
+    res.json({ message: 'Logged in successfully', token: 'Bearer ' + token });
   } catch (error) {
-    res.status(500).json({ message: "Error logging in", error });
+    logger.error('Error logging in', error);
+    next(error instanceof ApiError ? error : new ApiError(500, 'Error logging in.'));
   }
 });
 
