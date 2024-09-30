@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
 
-const destinationSchema = new mongoose.Schema({
+export const destinationSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
