@@ -2,6 +2,8 @@
 import mongoose from "mongoose";
 import { logger } from "../common/logger.js";
 import { env } from "../common/env.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const MONGO_URL = env("MONGO_URL");
 
