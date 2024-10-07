@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,

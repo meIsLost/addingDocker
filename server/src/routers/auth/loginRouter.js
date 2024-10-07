@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 import { userModel } from '../../models/user-model.js';
 import { logger } from '../../common/logger.js';
 import { ApiError } from '../../common/api-error.js';
-import dotenv from "dotenv";
-dotenv.config();
+import { env } from "./src/common/env.js";
+
 
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.post('/login', async (req, res, next) => {
       throw new ApiError(400, 'Incorrect password.');
     }
     const payload = { id: user.id, email: user.email };
-    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(payload,  env("ACCESS_TOKEN_SECRET"), { expiresIn: '1h' });
 
     logger.info('User logged in', { email });
     res.json({ message: 'Logged in successfully', token: 'Bearer ' + token });

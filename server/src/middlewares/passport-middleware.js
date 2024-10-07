@@ -1,11 +1,11 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { userModel } from '../models/user-model.js';
-import dotenv from 'dotenv';
-dotenv.config(); 
+import { env } from "./src/common/env.js";
+
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.ACCESS_TOKEN_SECRET,           
+  secretOrKey: env("ACCESS_TOKEN_SECRET"),           
 };
 
 export default function(passport) {

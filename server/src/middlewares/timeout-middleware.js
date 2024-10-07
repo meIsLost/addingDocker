@@ -15,7 +15,7 @@ const REQ_TIMEOUT = 10000;
  */
 export function timeoutMiddleware(req, res, next) {
   req.setTimeout(REQ_TIMEOUT, () => {
-    throw new ApiError(503, "Request timed out", res);
+    throw new ApiError(503, "Request timed out");
   });
 
   next();
