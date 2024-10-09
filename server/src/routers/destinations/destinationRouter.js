@@ -48,3 +48,28 @@ destinationRouter.post("/destinations", async (req, res, next) => {
     await disconnect();
   }
 });
+
+destinationRouter.delete("/destinations/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await connect();
+    const deletedDestination = await destinationModel.findByIdAndDelete(id);
+
+    if (!deletedDestination) {
+      throw new ApiError(404, "Destination not found");
+    }
+
+    logger.info("destinationModel delete", deletedDestination);
+    res.json({ message: "Deleted" });
+  } catch (error) {
+    logger.error("Error deleting destination", { error });
+
+    if (error instanceof ApiError) {
+      return next(error);
+    }
+
+    next(new ApiError(500, "Error deleting destination"));
+  } finally {
+    await disconnect();
+  }
+});

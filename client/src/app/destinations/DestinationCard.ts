@@ -1,8 +1,8 @@
 import html from "html-literal";
-import { type Destination } from "../../../../server/src/models/types";
+import { type Destination } from "../../types/types";
 
 export function DestinationCard({ destination }: { destination: Destination }) {
-  return html` <div class="flex p-5">
+  return html` <div class="flex p-5" id="destination-${destination._id}">
     <img class="size-3/12" src="${destination.imageUrl}" alt="" />
     <div class="flex flex-col pl-4 size-3/6">
       <h2 class="font-medium text-xl pb-2">${destination.location}</h2>
@@ -29,9 +29,19 @@ export function DestinationCard({ destination }: { destination: Destination }) {
       <div class="flex justify-end p-2"></div>
     </div>
     <div class="flex flex-col gap-2">
-      <button onclick="window.location.href='/destinations/${destination._id}/update'" class="border px-2 py-1.5 rounded-md text-xs" id="updateBtn-${destination._id}" on>Update</button>
-      <button onclick="confirm('Are you sure you want to delete this destination?')" class="border border-red-700/20 px-2 py-1.5 rounded-md text-xs" id="deleteBtn-${destination._id}">Delete</button>
+      <button
+        onclick="window.location.href='/update?${destination._id}'"
+        class="border px-2 py-1.5 rounded-md text-xs"
+        id="updateBtn-${destination._id}"
+      >
+        Update
+      </button>
+      <button
+        class="border border-red-700/20 px-2 py-1.5 rounded-md text-xs"
+        id="deleteBtn-${destination._id}"
+      >
+        Delete
+      </button>
     </div>
   </div>`;
-
 }

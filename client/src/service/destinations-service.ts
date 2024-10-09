@@ -1,4 +1,4 @@
-import { type Destination } from "../../../server/src/models/types";
+import { type Destination } from "../types/types";
 
 declare global {
   interface Response {
@@ -14,5 +14,13 @@ export const destinationsApi = {
     const data = await response.json<Destination[]>();
     console.log(data);
     return data;
+  },
+
+  async deleteDestination(id: string): Promise<{ message: string }> {
+    const response = await fetch(`${API_URL}/v1/destinations/${id}`, {
+      method: "DELETE",
+    }).then((res) => res.json<{ message: "Deleted" }>());
+
+    return response;
   },
 } as const;
