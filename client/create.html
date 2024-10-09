@@ -14,16 +14,14 @@
         class="italic font-medium text-lg text-neutral-800 hover:text-neutral-900"
         >Travel destinations
       </a>
-      <div class="flex gap-4 items-center">
+      <nav class="flex gap-4 items-center">
         <a
           href="/"
           class="text-neutral-800 hover:text-neutral-900 underline underline-offset-2"
           >Destinations
         </a>
-        <button class="px-3.5 py-0.5 rounded-lg bg-forestGreen/90">
-          <a href="/login" class="text-white">Login </a>
-        </button>
-      </div>
+        <div id="header-buttons" class="flex gap-2 items-center"></div>
+      </nav>
     </header>
 
     <div class="bg-gray-50 flex justify-center items-center min-h-screen">
@@ -136,5 +134,6 @@
     </div>
 
     <script type="module" src="./src/app/destinations/destinations.ts"></script>
+    <script type="module" src="./src/app/header.ts"></script>
   </body>
 </html>
