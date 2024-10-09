@@ -2,25 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Destination</title>
   </head>
+
   <body>
-    <div id="app"></div>
-    <p>Hello</p>
-    <div class="card">
-      <img src="images/sweden1.jpg" class="cardImage" alt="Sweden" />
-      <div class="cardInformation">
-        <div class="destinationName">
-          <p>Sweden</p>
-        </div>
-        <div class="destinationDate">
-          <p>November 2023</p>
-        </div>
+    <header class="flex justify-between items-center w-screen p-4 border-b">
+      <a
+        href="/"
+        class="italic font-medium text-lg text-neutral-800 hover:text-neutral-900"
+        >Travel destinations
+      </a>
+      <div class="flex gap-4 items-center">
+        <a
+          href="/"
+          class="text-neutral-800 hover:text-neutral-900 underline underline-offset-2"
+          >Destinations
+        </a>
+        <button class="px-3.5 py-0.5 rounded-lg bg-forestGreen/90">
+          <a href="/login" class="text-white">Login </a>
+        </button>
+      </div>
+    </header>
+
+    <div class="flex flex-col gap-4 p-10 bg-gray-50">
+      <h1 class="font-medium text-4xl pb-2">Destinations</h1>
+      <div class="flex flex-col gap-2">
+        <p>
+          Welcome to our collection of travel destinations! Below, you will find
+          a comprehensive list of all the incredible places we've showcased in
+          our gallery. We invite you to explore these remarkable destinations
+          and discover the diverse experiences they offer.
+        </p>
+        <p>
+          If you have recently traveled to a destination that isn't included in
+          our gallery, we would love to hear about it! Feel free to share your
+          adventures with us and contribute your unique experiences to our
+          collection. Your travels can inspire others and help them discover new
+          places to explore.
+        </p>
+        <p>
+          Thank you for being part of our travel community, and we look forward
+          to seeing your contributions!
+        </p>
+      </div>
+      <div class="flex justify-end pr-4">
+        <a
+          href="/create"
+          class="text-white bg-forestGreen py-1.5 px-4 rounded-xl w-fit"
+        >
+          Add your own travels
+        </a>
       </div>
     </div>
-    <script type="module" src="src/app/index.ts"></script>
+    <div class="flex flex-col p-5 bg-gray-50" id="destination-list"></div>
+    <script type="module" src="/src/app/index.ts"></script>
   </body>
 </html>

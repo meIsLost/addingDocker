@@ -1,11 +1,15 @@
+import jwt from "jsonwebtoken";
 import express from "express";
-import { userModel } from "../../models/user-model.js";
+import { userModel, userSchemaValidator } from "../../models/user-model.js";
 import { connect, disconnect } from "../../databases/connection.js";
 import { logger } from "../../common/logger.js";
 import { ApiError } from "../../common/api-error.js";
 import { getEmailFromParams } from "./lib/get-email.js";
+import { env } from "../../common/env.js";
 
 export const userRouter = express.Router();
+
+const ACCESS_TOKEN_SECRET = env("ACCESS_TOKEN_SECRET");
 
 userRouter.get("/users", async (_req, res, next) => {
   try {
@@ -35,8 +39,6 @@ userRouter.get("/users/:email", async (req, res, next) => {
       throw new ApiError(404, "User was not found.");
     }
 
-    logger.info("getUserByEmail", { user });
-    await disconnect();
     res.json(user);
   } catch (error) {
     logger.error("getUserByEmail", { error });
@@ -46,29 +48,49 @@ userRouter.get("/users/:email", async (req, res, next) => {
   }
 });
 
-userRouter.post('/users', async (req, res, next) => {
+userRouter.post("/users", async (req, res, next) => {
   try {
-    const { name, username, email, password } = req.body;
+    /*** @type {import("../../models/types.js").User} */
+    let body;
+    try {
+      body = userSchemaValidator.parse(req.body);
+    } catch (error) {
+      throw new ApiError(400, error);
+    }
+
     await connect();
 
-    const existingUser = await userModel.findOne({ email });
+    const existingUser = await userModel.findOne({ email: body.email });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(409).json({ message: "User already exists" });
     }
-    const newUser = new userModel({ name, username, email, password });
-    await newUser.save();
 
-    res.status(201).json({
-      message: 'User registered',
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        username: newUser.username,
-        email: newUser.email
-      }
+    const newUser = await userModel.create(body);
+
+    const token = jwt.sign(
+      { userId: newUser._id, email: newUser.email },
+      ACCESS_TOKEN_SECRET,
+      { expiresIn: "1h" },
+    );
+
+    logger.info("User created and logged in", { email: newUser.email });
+
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: false, // Don't use Secure in development (HTTP)
+      sameSite: "Lax", // Use 'Lax' to allow cookies in first-party contexts
+      maxAge: 3600 * 1000, // 1 hour expiration
     });
+    res
+      .status(201)
+      .json({ message: "User registered", token: "Bearer " + token });
   } catch (error) {
-    next(new ApiError(500, 'Error creating user', error));
+    logger.error("createUser", { error });
+    if (error instanceof ApiError) {
+      return next(error);
+    }
+
+    next(new ApiError(500, "Error creating user", error));
   } finally {
     await disconnect();
   }

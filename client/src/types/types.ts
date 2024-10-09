@@ -1,3 +1,9 @@
+declare global {
+  interface Response {
+    json<T = unknown>(): Promise<T>;
+  }
+}
+
 export type Destination = {
   _id: string;
   id: string;
