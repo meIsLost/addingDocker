@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="destinationsForm.js" defer></script>
+    <title>Destinations Form</title>
+</head>
+
+<body>
+    <!-- Navbar  -->
+    <header class="flex justify-between w-screen p-4">
+        <p>Travel destinations</p>
+        <div class="flex gap-8">
+            <p class="underline">Destinations</p>
+            <p>Map</p>
+            <p>About</p>
+        </div>
+    </header>
+    <!-- Destinations form -->
+    <h1 class="text-4xl text-center pt-5 pb-8 font-medium">Create a new destination</h1>
+    <div class="sm:width-9/12 destinationForm">
+        <form id="newDestination">
+            <label for="country">Country *</label> <br>
+            <input id="country" name="country" class="default-input"> <br>
+            <label for="location">Location</label> <br>
+            <input id="location" name="location"> <br>
+            <label for="startDate">Start date</label> <br>
+            <input type="date" name="startDate" id="startDate"> <br>
+            <label for="endDate">End date</label> <br>
+            <input type="date" name="endDate" id="endDate"> <br>
+            <label for="image">Image</label> <br>
+            <input type="image" id="image" name="image"> <br>
+            <label for="description">Short description</label> <br>
+            <input type="text" id="description" name="description">
+            <div class="submit">
+                <button id="submit" class="font-bold p-2">
+                    Submit
+                </button>
+            </div>
+        </form>
+        <!-- Submit button-->
+
+    </div>
+</body>
+
+<style>
+    .destinationForm {
+        margin: auto;
+        width: 40%;
+        padding: 40px;
+        color: #fff;
+        background: #779150;
+        border-radius: 10px;
+    }
+
+    input {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 20px;
+        color: #463220;
+    }
+
+    .submit {
+        display: flex;
+        justify-content: center;
+    }
+
+    .submit>button {
+        color: #463220;
+        background: #fff;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .submit>button:hover {
+        color: #463220;
+        background-color: rgb(247, 245, 242);
+    }
+</style>
+
+</html>

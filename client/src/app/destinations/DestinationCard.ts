@@ -28,5 +28,10 @@ export function DestinationCard({ destination }: { destination: Destination }) {
       <p class="justify-start text-sm pt-2 pr-2">${destination.description}</p>
       <div class="flex justify-end p-2"></div>
     </div>
+    <div class="flex flex-col gap-2">
+      <button onclick="window.location.href='/destinations/${destination._id}/update'" class="border px-2 py-1.5 rounded-md text-xs" id="updateBtn-${destination._id}" on>Update</button>
+      <button onclick="confirm('Are you sure you want to delete this destination?')" class="border border-red-700/20 px-2 py-1.5 rounded-md text-xs" id="deleteBtn-${destination._id}">Delete</button>
+    </div>
   </div>`;
+
 }
