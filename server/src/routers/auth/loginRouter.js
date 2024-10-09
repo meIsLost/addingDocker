@@ -3,12 +3,16 @@ import jwt from 'jsonwebtoken';
 import { userModel } from '../../models/user-model.js';
 import { logger } from '../../common/logger.js';
 import { ApiError } from '../../common/api-error.js';
-import { env } from "./src/common/env.js";
+import { env } from "../../common/env.js";
 
 
-const router = express.Router();
+export const loginRouter = express.Router();
 
-router.post('/login', async (req, res, next) => {
+
+const ACCESS_TOKEN_SECRET = env("ACCESS_TOKEN_SECRET");
+
+
+loginRouter.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -22,7 +26,7 @@ router.post('/login', async (req, res, next) => {
       throw new ApiError(400, 'Incorrect password.');
     }
     const payload = { id: user.id, email: user.email };
-    const token = jwt.sign(payload,  env("ACCESS_TOKEN_SECRET"), { expiresIn: '1h' });
+    const token = jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 
     logger.info('User logged in', { email });
     res.json({ message: 'Logged in successfully', token: 'Bearer ' + token });
@@ -31,5 +35,3 @@ router.post('/login', async (req, res, next) => {
     next(error instanceof ApiError ? error : new ApiError(500, 'Error logging in.'));
   }
 });
-
-export default router;

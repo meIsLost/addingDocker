@@ -56,21 +56,21 @@ userRouter.post('/users', async (req, res, next) => {
       return res.status(400).json({ message: 'User already exists' });
     }
     const newUser = new userModel({ name, username, email, password });
-    await newUser.save(); 
+    await newUser.save();
 
-    res.status(201).json({ 
-      message: 'User registered', 
-      user: { 
-        id: newUser._id, 
-        name: newUser.name, 
-        username: newUser.username, 
-        email: newUser.email 
-      } 
+    res.status(201).json({
+      message: 'User registered',
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        username: newUser.username,
+        email: newUser.email
+      }
     });
   } catch (error) {
     next(new ApiError(500, 'Error creating user', error));
   } finally {
-    await disconnect();  
+    await disconnect();
   }
 });
 

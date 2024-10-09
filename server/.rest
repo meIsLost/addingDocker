@@ -1,0 +1,57 @@
+### Get all destinations
+GET http://localhost:8082/v1/destinations
+Content-Type: application/json
+
+### Add a new destination
+
+POST http://localhost:8082/v1/destinations
+Content-Type: application/json
+
+{
+  "title": "Khao Sok National Park",
+  "startDate": "2023-01-10",
+  "endDate": "2023-01-20",
+  "description": "A breathtaking national park known for its limestone cliffs and rainforests.",
+  "location": "Khao Sok",
+  "country": "Thailand",
+  "imageUrl": ""
+}
+
+###
+POST http://localhost:8082/v1/destinations
+Content-Type: application/json
+
+{
+  "title": "Abisko National Park",
+  "startDate": "2023-02-01",
+  "endDate": "2023-02-07",
+  "description": "Abisko National Park in Swedish Lapland is known for its stunning Northern Lights views.",
+  "location": "Abisko",
+  "country": "Sweden",
+  "imageUrl": ""
+}
+
+### 
+
+POST http://localhost:8082/v1/destinations
+Content-Type: application/json
+
+{
+  "title": "Seoraksan National Park",
+  "startDate": "2023-03-15",
+  "endDate": "2023-03-25",
+  "description": "Seoraksan is a popular destination for its mountainous beauty and diverse ecosystems.",
+  "location": "Seoraksan",
+  "country": "South Korea",
+  "imageUrl": ""
+}
+### Create a new user
+
+POST http://localhost:8082/v1/users
+Content-Type: application/json
+{
+  "name": "Louise",
+  "username": "lou",
+  "email": "lou@gmail.com",
+  "password": "pass"
+}

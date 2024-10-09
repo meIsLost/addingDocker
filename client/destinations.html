@@ -1,191 +1,159 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="src/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Destination</title>
-  </head>
 
-  <body>
-    <!-- Navbar  -->
-    <header class="flex justify-between w-screen p-4">
-      <p>Travel destinations</p>
-      <div class="flex gap-8">
-        <p class="underline">Destinations</p>
-        <p>Map</p>
-        <p>About</p>
-      </div>
-    </header>
-    <!-- Introduction to destinations  -->
-    <div class="flex flex-col gap-4 p-10">
-      <h1 class="font-medium text-4xl pb-2">Destinations</h1>
-      <div class="flex flex-col gap-2">
-        <p>
-          Welcome to our collection of travel destinations! Below, you will find
-          a comprehensive list of all the incredible places we've showcased in
-          our gallery. We invite you to explore these remarkable destinations
-          and discover the diverse experiences they offer.
-        </p>
-        <p>
-          If you have recently traveled to a destination that isn't included in
-          our gallery, we would love to hear about it! Feel free to share your
-          adventures with us and contribute your unique experiences to our
-          collection. Your travels can inspire others and help them discover new
-          places to explore.
-        </p>
-        <p>
-          Thank you for being part of our travel community, and we look forward
-          to seeing your contributions!
-        </p>
-      </div>
-      <div class="flex justify-end pr-4">
-        <button class="text-white bg-forestGreen p-2 rounded-xl w-fit">
-          Add your own travels
-        </button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="src/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destination</title>
+</head>
+
+<body>
+  <header class="flex justify-between w-screen p-4">
+    <p>Travel destinations</p>
+    <div class="flex gap-8">
+      <p class="underline">Destinations</p>
+      <p>Map</p>
+      <p>About</p>
+      <a href="./login" class="text-white bg-forestGreen p-2 rounded-xl">Login</a>
     </div>
-    <!-- List of different destinations-->
-    <div class="flex flex-col p-5" id="destination-list"></div>
-    <hr />
-    <div class="flex flex-col p-5">
-      <div class="flex p-5">
-        <img class="size-3/12" src="images/thailand1.jpg" alt="" />
-        <div class="flex flex-col pl-4 size-3/6">
-          <h2 class="font-medium text-xl pb-2">Thailand</h2>
-          <!-- <img class="size-3" src="images/352549_more_vert_iconfinder.svg" alt=""> -->
-          <div class="flex gap-3 pl-1">
-            <img
-              class="size-4"
-              src="images/2075808_destination_location_map_pin_iconfinder.svg"
-              alt=""
-            />
-            <p>Khao Sok National Park</p>
-          </div>
-          <div class="flex gap-3 p-1">
-            <img
-              class="size-4"
-              src="images/9004671_calendar_date_schedule_event_iconfinder.svg"
-              alt=""
-            />
-            <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
-          </div>
-          <p class="justify-start text-sm pt-2 pr-2">
-            Khao Sok National Park in Thailand is renowned for its breathtaking
-            limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
-            offering visitors a unique blend of natural beauty and wildlife
-            diversity. As one of Thailand's oldest rainforests, it provides
-            exceptional opportunities for trekking, wildlife spotting, and boat
-            tours amidst stunning landscapes.
-          </p>
-          <div class="flex justify-end p-2">
-            <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
-          </div>
+  </header>
+  <div class="flex flex-col gap-4 p-10">
+    <h1 class="font-medium text-4xl pb-2">Destinations</h1>
+    <div class="flex flex-col gap-2">
+      <p>
+        Welcome to our collection of travel destinations! Below, you will find
+        a comprehensive list of all the incredible places we've showcased in
+        our gallery. We invite you to explore these remarkable destinations
+        and discover the diverse experiences they offer.
+      </p>
+      <p>
+        If you have recently traveled to a destination that isn't included in
+        our gallery, we would love to hear about it! Feel free to share your
+        adventures with us and contribute your unique experiences to our
+        collection. Your travels can inspire others and help them discover new
+        places to explore.
+      </p>
+      <p>
+        Thank you for being part of our travel community, and we look forward
+        to seeing your contributions!
+      </p>
+    </div>
+    <div class="flex justify-end pr-4">
+      <a href="./add-destination.html" class="text-white bg-forestGreen p-2 rounded-xl w-fit">
+        Add your own travels
+      </a>
+    </div>
+  </div>
+  <div class="flex flex-col p-5" id="destination-list"></div>
+  <hr />
+  <div class="flex flex-col p-5">
+    <div class="flex p-5">
+      <img class="size-3/12" src="images/thailand1.jpg" alt="" />
+      <div class="flex flex-col pl-4 size-3/6">
+        <h2 class="font-medium text-xl pb-2">Thailand</h2>
+        <!-- <img class="size-3" src="images/352549_more_vert_iconfinder.svg" alt=""> -->
+        <div class="flex gap-3 pl-1">
+          <img class="size-4" src="images/2075808_destination_location_map_pin_iconfinder.svg" alt="" />
+          <p>Khao Sok National Park</p>
         </div>
-      </div>
-      <!-- Sweden -->
-      <div class="flex p-5">
-        <img class="size-3/12" src="images/sweden1.jpg" alt="" />
-        <div class="flex flex-col pl-4 size-3/6">
-          <h2 class="font-medium text-xl pb-2">Sweden</h2>
-          <div class="flex gap-3 pl-1">
-            <img
-              class="size-4"
-              src="images/2075808_destination_location_map_pin_iconfinder.svg"
-              alt=""
-            />
-            <p>Khao Sok National Park</p>
-          </div>
-          <div class="flex gap-3 p-1">
-            <img
-              class="size-4"
-              src="images/9004671_calendar_date_schedule_event_iconfinder.svg"
-              alt=""
-            />
-            <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
-          </div>
-          <p class="justify-start text-sm pt-2 pr-2">
-            Khao Sok National Park in Thailand is renowned for its breathtaking
-            limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
-            offering visitors a unique blend of natural beauty and wildlife
-            diversity. As one of Thailand's oldest rainforests, it provides
-            exceptional opportunities for trekking, wildlife spotting, and boat
-            tours amidst stunning landscapes.
-          </p>
-          <div class="flex justify-end p-2">
-            <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
-          </div>
+        <div class="flex gap-3 p-1">
+          <img class="size-4" src="images/9004671_calendar_date_schedule_event_iconfinder.svg" alt="" />
+          <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
         </div>
-      </div>
-      <!-- South Korea -->
-      <div class="flex p-5">
-        <img class="size-3/12" src="images/korea1.jpg" alt="" />
-        <div class="flex flex-col pl-4 size-3/6">
-          <h2 class="font-medium text-xl pb-2">Korea</h2>
-          <div class="flex gap-3 pl-1">
-            <img
-              class="size-4"
-              src="images/2075808_destination_location_map_pin_iconfinder.svg"
-              alt=""
-            />
-            <p>Khao Sok National Park</p>
-          </div>
-          <div class="flex gap-3 p-1">
-            <img
-              class="size-4"
-              src="images/9004671_calendar_date_schedule_event_iconfinder.svg"
-              alt=""
-            />
-            <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
-          </div>
-          <p class="justify-start text-sm pt-2 pr-2">
-            Khao Sok National Park in Thailand is renowned for its breathtaking
-            limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
-            offering visitors a unique blend of natural beauty and wildlife
-            diversity. As one of Thailand's oldest rainforests, it provides
-            exceptional opportunities for trekking, wildlife spotting, and boat
-            tours amidst stunning landscapes.
-          </p>
-          <div class="flex justify-end p-2">
-            <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
-          </div>
-        </div>
-      </div>
-      <!-- Sweden -->
-      <div class="flex p-5">
-        <img class="size-3/12" src="images/thailand2.jpg" alt="" />
-        <div class="flex flex-col pl-4 size-3/6">
-          <h2 class="font-medium text-xl pb-2">Thailand</h2>
-          <div class="flex gap-3 pl-1">
-            <img
-              class="size-4"
-              src="images/2075808_destination_location_map_pin_iconfinder.svg"
-              alt=""
-            />
-            <p>Khao Sok National Park</p>
-          </div>
-          <div class="flex gap-3 p-1">
-            <img
-              class="size-4"
-              src="images/9004671_calendar_date_schedule_event_iconfinder.svg"
-              alt=""
-            />
-            <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
-          </div>
-          <p class="justify-start text-sm pt-2 pr-2">
-            Khao Sok National Park in Thailand is renowned for its breathtaking
-            limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
-            offering visitors a unique blend of natural beauty and wildlife
-            diversity. As one of Thailand's oldest rainforests, it provides
-            exceptional opportunities for trekking, wildlife spotting, and boat
-            tours amidst stunning landscapes.
-          </p>
-          <div class="flex justify-end p-2">
-            <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
-          </div>
+        <p class="justify-start text-sm pt-2 pr-2">
+          Khao Sok National Park in Thailand is renowned for its breathtaking
+          limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
+          offering visitors a unique blend of natural beauty and wildlife
+          diversity. As one of Thailand's oldest rainforests, it provides
+          exceptional opportunities for trekking, wildlife spotting, and boat
+          tours amidst stunning landscapes.
+        </p>
+        <div class="flex justify-end p-2">
+          <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
         </div>
       </div>
     </div>
-    <script type="module" src="/src/app/destinations/index.ts"></script>
-  </body>
+    <!-- Sweden -->
+    <div class="flex p-5">
+      <img class="size-3/12" src="images/sweden1.jpg" alt="" />
+      <div class="flex flex-col pl-4 size-3/6">
+        <h2 class="font-medium text-xl pb-2">Sweden</h2>
+        <div class="flex gap-3 pl-1">
+          <img class="size-4" src="images/2075808_destination_location_map_pin_iconfinder.svg" alt="" />
+          <p>Khao Sok National Park</p>
+        </div>
+        <div class="flex gap-3 p-1">
+          <img class="size-4" src="images/9004671_calendar_date_schedule_event_iconfinder.svg" alt="" />
+          <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
+        </div>
+        <p class="justify-start text-sm pt-2 pr-2">
+          Khao Sok National Park in Thailand is renowned for its breathtaking
+          limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
+          offering visitors a unique blend of natural beauty and wildlife
+          diversity. As one of Thailand's oldest rainforests, it provides
+          exceptional opportunities for trekking, wildlife spotting, and boat
+          tours amidst stunning landscapes.
+        </p>
+        <div class="flex justify-end p-2">
+          <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
+        </div>
+      </div>
+    </div>
+    <!-- South Korea -->
+    <div class="flex p-5">
+      <img class="size-3/12" src="images/korea1.jpg" alt="" />
+      <div class="flex flex-col pl-4 size-3/6">
+        <h2 class="font-medium text-xl pb-2">Korea</h2>
+        <div class="flex gap-3 pl-1">
+          <img class="size-4" src="images/2075808_destination_location_map_pin_iconfinder.svg" alt="" />
+          <p>Khao Sok National Park</p>
+        </div>
+        <div class="flex gap-3 p-1">
+          <img class="size-4" src="images/9004671_calendar_date_schedule_event_iconfinder.svg" alt="" />
+          <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
+        </div>
+        <p class="justify-start text-sm pt-2 pr-2">
+          Khao Sok National Park in Thailand is renowned for its breathtaking
+          limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
+          offering visitors a unique blend of natural beauty and wildlife
+          diversity. As one of Thailand's oldest rainforests, it provides
+          exceptional opportunities for trekking, wildlife spotting, and boat
+          tours amidst stunning landscapes.
+        </p>
+        <div class="flex justify-end p-2">
+          <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
+        </div>
+      </div>
+    </div>
+    <!-- Sweden -->
+    <div class="flex p-5">
+      <img class="size-3/12" src="images/thailand2.jpg" alt="" />
+      <div class="flex flex-col pl-4 size-3/6">
+        <h2 class="font-medium text-xl pb-2">Thailand</h2>
+        <div class="flex gap-3 pl-1">
+          <img class="size-4" src="images/2075808_destination_location_map_pin_iconfinder.svg" alt="" />
+          <p>Khao Sok National Park</p>
+        </div>
+        <div class="flex gap-3 p-1">
+          <img class="size-4" src="images/9004671_calendar_date_schedule_event_iconfinder.svg" alt="" />
+          <p class="text-xs">14 Feb, 2022 - 27 Feb, 2022</p>
+        </div>
+        <p class="justify-start text-sm pt-2 pr-2">
+          Khao Sok National Park in Thailand is renowned for its breathtaking
+          limestone cliffs, lush rainforests, and the serene Cheow Lan Lake,
+          offering visitors a unique blend of natural beauty and wildlife
+          diversity. As one of Thailand's oldest rainforests, it provides
+          exceptional opportunities for trekking, wildlife spotting, and boat
+          tours amidst stunning landscapes.
+        </p>
+        <div class="flex justify-end p-2">
+          <!-- <button class="text-white bg-forestGreen pr-2 pl-2 p-1 rounded-xl w-fit">Learn more</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/app/destinations/index.ts"></script>
+</body>
+
 </html>

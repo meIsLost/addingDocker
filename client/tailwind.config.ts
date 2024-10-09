@@ -1,11 +1,14 @@
 import { type Config } from "tailwindcss";
 
 export default {
-  content: ["**/*.{html,js,ts}"],
+  content: [
+    "./**/*.html",
+    "./src/**/*.{html,js,ts,jsx,tsx}"
+  ],
   theme: {
     extend: {
       colors: {
-        forestGreen: "#779150"
+        forestGreen: "#779150",
       },
     },
   },

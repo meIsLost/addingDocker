@@ -13,20 +13,14 @@ export function DestinationCard({ destination }: { destination: Destination }) {
           alt=""
         />
         <p>${destination.title}</p>
-      </div>
-      <div class="flex gap-3 p-1">
-        <img
-          class="size-4"
-          src="images/9004671_calendar_date_schedule_event_iconfinder.svg"
-          alt=""
-        />
         <p class="text-xs">
           ${new Date(destination.startDate).toLocaleDateString()} -
           ${new Date(destination.endDate).toLocaleDateString()}
         </p>
+        <p class="justify-start text-sm pt-2 pr-2">
+          ${destination.description}
+        </p>
       </div>
-      <p class="justify-start text-sm pt-2 pr-2">${destination.description}</p>
-      <div class="flex justify-end p-2"></div>
     </div>
     <div class="flex flex-col gap-2">
       <button

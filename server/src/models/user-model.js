@@ -4,7 +4,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
 
 export const userSchema = new mongoose.Schema({
-  id: {
+  _id: {
     type: String,
     required: true,
     unique: true,
@@ -43,6 +43,10 @@ userSchema.pre('save', async function(next) {
     next(err);
   }
 });
+
+userSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 export const userModel = mongoose.model("user", userSchema);
 

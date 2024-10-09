@@ -7,7 +7,8 @@ import {
 import { logger } from "../../common/logger.js";
 import { ApiError } from "../../common/api-error.js";
 import { connect, disconnect } from "../../databases/connection.js";
-
+import upload from "../../middlewares/image-middleware.js";
+import passport from "passport";
 export const destinationRouter = express.Router();
 
 destinationRouter.get("/destinations", async (_req, res, next) => {
@@ -33,43 +34,67 @@ destinationRouter.get("/destinations", async (_req, res, next) => {
   }
 });
 
-destinationRouter.post("/destinations", async (req, res, next) => {
-  try {
-    const body = destinationSchemaValidator.parse(req.body);
-    await connect();
-    const newDestination = await destinationModel.create(body);
+destinationRouter.post(
+  "/destinations",
+  upload.single("image"),
+  async (req, res, next) => {
+    try {
+      await connect();
+      const { title, location, country, startDate, endDate, description } =
+        req.body;
+      const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
 
-    logger.info("destinationModel create", newDestination);
-    res.status(201).json({ message: "Created", destination: newDestination });
-  } catch (error) {
-    logger.error("Error creating destination", { error });
-    next(new ApiError(500, "Error creating destination"));
-  } finally {
-    await disconnect();
-  }
-});
+      const destinationData = {
+        title,
+        location,
+        country,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        description,
+        imageUrl,
+      };
 
-destinationRouter.delete("/destinations/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    await connect();
-    const deletedDestination = await destinationModel.findByIdAndDelete(id);
+      const validatedData = destinationSchemaValidator.parse(destinationData);
 
-    if (!deletedDestination) {
-      throw new ApiError(404, "Destination not found");
+      const newDestination = new destinationModel(validatedData);
+      await newDestination.save();
+
+      logger.info("Destination created: ", newDestination);
+      res.status(201).json({
+        message: "Destination created successfully",
+        destination: newDestination,
+      });
+    } catch (error) {
+      logger.error("Error creating destination", error);
+      next(new ApiError(500, "Error creating destination"));
+    } finally {
+      await disconnect();
     }
+  },
+);
 
-    logger.info("destinationModel delete", deletedDestination);
-    res.json({ message: "Deleted" });
-  } catch (error) {
-    logger.error("Error deleting destination", { error });
+destinationRouter.delete(
+  "/destinations/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res, next) => {
+    try {
+      await connect();
+      const { id } = req.params;
+      const destination = await destinationModel.findByIdAndDelete(id);
+      if (!destination) {
+        throw new ApiError(404, "Destination not found");
+      }
+      res.status(200).json({ message: "Destination deleted successfully" });
+    } catch (error) {
+      logger.error("Error deleting destination", error);
 
-    if (error instanceof ApiError) {
-      return next(error);
+      if (error instanceof ApiError) {
+        return next(error);
+      }
+
+      next(new ApiError(500, "Error deleting destination"));
+    } finally {
+      await disconnect();
     }
-
-    next(new ApiError(500, "Error deleting destination"));
-  } finally {
-    await disconnect();
-  }
-});
+  },
+);

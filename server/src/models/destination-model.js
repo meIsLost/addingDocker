@@ -1,13 +1,10 @@
 import mongoose from "mongoose";
-import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
 
 export const destinationSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-    default: createId(),
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,  
+    auto: true,
   },
   title: {
     type: String,
@@ -37,7 +34,7 @@ export const destinationSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
@@ -48,12 +45,16 @@ export const destinationModel = mongoose.model(
 
 export const destinationSchemaValidator = z.object({
   title: z.string().min(1),
-  startDate: z.date(),
-  endDate: z.date(),
+  startDate: z.preprocess((arg) => {
+    if (typeof arg === "string" || arg instanceof Date) return new Date(arg);
+  }, z.date()),
+  endDate: z.preprocess((arg) => {
+    if (typeof arg === "string" || arg instanceof Date) return new Date(arg);
+  }, z.date()),
   description: z.string().min(1),
   location: z.string().min(1),
   country: z.string().min(1),
-  imageUrl: z.string().min(1),
+  imageUrl: z.string().optional(),
 });
 
 export const paramQueryValidator = z.object({

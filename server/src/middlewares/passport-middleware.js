@@ -1,14 +1,17 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { userModel } from '../models/user-model.js';
-import { env } from "./src/common/env.js";
+import { env } from "../common/env.js";
+import dotenv from "dotenv"; // env doesn't work here 
+dotenv.config();
 
+const ACCESS_TOKEN_SECRET = env("ACCESS_TOKEN_SECRET");
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: env("ACCESS_TOKEN_SECRET"),           
+  secretOrKey: ACCESS_TOKEN_SECRET,           
 };
 
-export default function(passport) {
+export default function initializePassport(passport) {
   passport.use(
     new JwtStrategy(options, async (jwt_payload, done) => {
       try {
