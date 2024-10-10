@@ -46,7 +46,7 @@ authRouter.post("/login", async (req, res, next) => {
       httpOnly: true,
       secure: false, // Don't use Secure in development (HTTP)
       sameSite: "Lax", // Use 'Lax' to allow cookies in first-party contexts
-      maxAge: 3600 * 1000, // 1 hour expiration
+      maxAge: 60 * 60 * 1000, // 1 hour expiration
     });
 
     res.json({ message: "Logged in successfully", token: "Bearer " + token });
