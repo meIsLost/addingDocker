@@ -44,4 +44,4 @@ async function onDelete(id: string) {
   }
 }
 
-await fetchDestinations();
+fetchDestinations().then().catch(console.error);

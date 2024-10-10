@@ -15,12 +15,12 @@ if (isLoggedIn()) {
     <button
       class="border px-3.5 py-0.5 rounded-md font-medium hover:bg-slate-50"
     >
-      <a href="/login">Log in</a>
+      <a href="/login" class="text-nowrap">Log in</a>
     </button>
     <button
       class="px-3.5 py-0.5 rounded-md bg-forestGreen/90 font-medium hover:bg-forestGreen"
     >
-      <a href="/signup" class="text-white">Sign up</a>
+      <a href="/signup" class="text-white text-nowrap">Sign up</a>
     </button>
   `;
 }

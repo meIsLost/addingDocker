@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
 import passport from "passport";
 import initializePassport from "./src/middlewares/passport-middleware.js";
 import { userRouter } from "./src/routers/users/userRouter.js";
@@ -11,22 +10,17 @@ import { loggerMiddleware } from "./src/middlewares/logger-middleware.js";
 import { timeoutMiddleware } from "./src/middlewares/timeout-middleware.js";
 import { rateLimiter } from "./src/common/rate-limit.js";
 import { errorHandlerMiddleware } from "./src/middlewares/error-handler-middleware.js";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 import mkcert from "mkcert";
 import https from "https";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const PORT = env("PORT");
 const app = express();
 
 const ca = await mkcert.createCA({
-  organization: "LMAO",
-  countryCode: "US",
-  state: "California",
-  locality: "San Francisco",
+  organization: "cphbusiness",
+  countryCode: "DK",
+  state: "Copenhagen",
+  locality: "Copenhagen",
   validity: 365,
 });
 const cert = await mkcert.createCert({
@@ -35,18 +29,16 @@ const cert = await mkcert.createCert({
   ca,
 });
 
-app.use(cors({ origin: "https://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: "https://localhost:5173" | "https://localhost:4173",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(rateLimiter);
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "/uploads")),
-  (req, res, next) => {
-    console.log("Serving files from: ", path.join(__dirname, "/uploads"));
-    next();
-  },
-);
+
 initializePassport(passport);
 app.use(passport.initialize());
 

@@ -1,62 +1,81 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login</title>
-  <link rel="stylesheet" href="/src/style.css" />
-</head>
-
-<body class="h-screen overflow-hidden bg-gray-50">
-  <header class="flex justify-between items-center w-screen p-4 border-b">
-    <a href="/" class="italic font-medium text-lg text-neutral-800 hover:text-neutral-900">Travel destinations
-    </a>
-    <nav class="flex gap-4 items-center">
-      <a href="/" class="text-neutral-800 hover:text-neutral-900 underline underline-offset-2">Destinations
+  <body class="h-screen overflow-hidden bg-gray-50">
+    <header class="flex justify-between items-center w-screen p-4 border-b">
+      <a
+        href="/"
+        class="italic font-medium text-lg text-neutral-800 hover:text-neutral-900"
+        >Travel destinations
       </a>
-      <div id="header-buttons" class="flex gap-2 items-center"></div>
-    </nav>
-  </header>
+      <nav class="flex gap-4 items-center">
+        <a
+          href="/"
+          class="text-neutral-800 hover:text-neutral-900 underline underline-offset-2"
+          >Destinations
+        </a>
+        <div id="header-buttons" class="flex gap-2 items-center"></div>
+      </nav>
+    </header>
 
-  <div class="flex items-center justify-center h-full">
-    <div class="bg-white shadow-lg rounded-lg max-w-lg w-full p-10">
-      <h2 class="text-2xl font-bold text-center mb-8 text-forestGreen">
-        Log in
-      </h2>
-      <form id="login-form" method="POST">
-        <div class="mb-6">
-          <label for="email" class="block text-sm font-medium text-gray-700">Email Address
-          </label>
-          <input id="email" name="email"
-            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
-            placeholder="Enter your email" />
-          <div class="text-red-400"></div>
-        </div>
-        <div class="mb-6">
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <input type="password" id="password" name="password"
-            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
-            placeholder="Enter your password" />
-          <div class="text-red-400"></div>
-        </div>
-        <div class="mt-6">
-          <button type="submit"
-            class="w-full bg-forestGreen text-white py-3 px-4 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-forestGreen">
-            Sign In
-          </button>
-        </div>
-        <p class="text-center text-sm text-gray-600 mt-6">
-          Don't have an account?
-          <a href="/signup.html" class="text-forestGreen hover:underline">Sign up
-          </a>
-        </p>
-      </form>
+    <div class="flex items-center justify-center h-full">
+      <div class="bg-white shadow-lg rounded-lg max-w-lg w-full p-10">
+        <h2 class="text-2xl font-bold text-center mb-8 text-forestGreen">
+          Log in
+        </h2>
+        <form id="login-form">
+          <div class="mb-6">
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >Email Address
+            </label>
+            <input
+              id="email"
+              name="email"
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              placeholder="Enter your email"
+            />
+            <div class="text-red-500"></div>
+          </div>
+          <div class="mb-6">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              placeholder="Enter your password"
+            />
+            <div class="text-red-500"></div>
+          </div>
+          <div class="mt-6">
+            <button
+              type="submit"
+              class="w-full bg-forestGreen text-white py-3 px-4 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-forestGreen"
+            >
+              Sign In
+            </button>
+          </div>
+          <p class="text-center text-sm text-gray-600 mt-6">
+            Don't have an account?
+            <a href="/signup.html" class="text-forestGreen hover:underline"
+              >Sign up
+            </a>
+          </p>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script type="module" src="./src/app/login/index.ts"></script>
-  <script type="module" src="./src/app/header.ts"></script>
-</body>
-
+    <script type="module" src="./src/app/login/index.ts"></script>
+    <script type="module" src="./src/app/header.ts"></script>
+  </body>
 </html>

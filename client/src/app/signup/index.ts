@@ -1,8 +1,9 @@
 import { userApi } from "../../service/user-service";
 import { isLoggedIn } from "../../util/auth";
+import { hideError, showError } from "../../util/form-validation";
 
 if (isLoggedIn()) {
-  window.location.href = "/";
+  window.location.assign("/");
 }
 
 const form = document.getElementById("signup-form") as HTMLFormElement;
@@ -20,63 +21,57 @@ form.addEventListener("submit", async (event) => {
 
   // Email validation pattern
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email||!emailPattern.test(email)) {
+  if (!email || !emailPattern.test(email)) {
     isValid = false;
-    // @ts-expect-error
-    showError(form.email, "Please enter a valid email address");
+    showError(
+      form.email as HTMLInputElement,
+      "Please enter a valid email address",
+    );
   } else {
-    // @ts-expect-error
-    hideError(form.email);
+    hideError(form.email as HTMLInputElement);
   }
 
   // Password validation
-  if (!password||password.length > 20 || password.length < 1) {
+  if (!password || password.length > 20 || password.length < 1) {
     isValid = false;
-    // @ts-expect-error
-    showError(form.password, "Password must be between 1 and 20 characters");
+    showError(
+      form.password as HTMLInputElement,
+      "Password must be between 1 and 20 characters",
+    );
   } else {
-    // @ts-expect-error
-    hideError(form.password);
+    hideError(form.password as HTMLInputElement);
   }
 
   // Username validation pattern
-  if (!username||username.length > 20 || username.length < 1) {
+  if (!username || username.length > 20 || username.length < 1) {
     isValid = false;
-    // @ts-expect-error
-    showError(form.username, "Username must be between 1 and 20 characters");
+    showError(
+      form.username as HTMLInputElement,
+      "Username must be between 1 and 20 characters",
+    );
   } else {
-    // @ts-expect-error
-    hideError(form.username);
+    hideError(form.username as HTMLInputElement);
   }
 
   // name validation
-  if (!name||name.length > 20 || name.length < 1) {
+  if (!name || name.length > 20 || name.length < 1) {
     isValid = false;
-    // @ts-expect-error
-    showError(form.name, "Name must be between 1 and 20 characters");
+
+    showError(
+      form.name as unknown as HTMLInputElement,
+      "Name must be between 1 and 20 characters",
+    );
   } else {
-    // @ts-expect-error
-    hideError(form.name);
+    hideError(form.name as unknown as HTMLInputElement);
   }
 
-  if (isValid){
-  try {
-    await userApi.signUp({ email, password, username, name });
-    setTimeout(() => window.location.assign("/"), 100);
-  } catch (error) {
-    console.error("SignUp error:", error);
-    alert("Failed to sign up. Please try again later.");
+  if (isValid) {
+    try {
+      await userApi.signUp({ email, password, username, name });
+      setTimeout(() => window.location.assign("/"), 100);
+    } catch (error) {
+      console.error("SignUp error:", error);
+      alert("Failed to sign up. Please try again later.");
+    }
   }
-}
-
-function showError(input, message){
-  const errorElement = input.nextElementSibling;
-errorElement.textContent = message;
-errorElement.style.display = "block";
-}
-
-function hideError(input) {
-  const errorElement = input.nextElementSibling;
-  errorElement.style.display = "none";
-}
 });

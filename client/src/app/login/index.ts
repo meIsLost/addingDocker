@@ -1,5 +1,6 @@
 import { authApi } from "../../service/auth-service";
 import { isLoggedIn } from "../../util/auth";
+import { hideError, showError } from "../../util/form-validation";
 
 // Redirect if already logged in
 if (isLoggedIn()) {
@@ -19,23 +20,22 @@ form.addEventListener("submit", async (event) => {
 
   // Email validation pattern
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email||!emailPattern.test(email)) {
+  if (!email || !emailPattern.test(email)) {
     isValid = false;
-    // @ts-expect-error
-    showError(form.email, "Please enter a valid email address");
+    showError(
+      form.email as HTMLInputElement,
+      "Please enter a valid email address",
+    );
   } else {
-    // @ts-expect-error
-    hideError(form.email);
+    hideError(form.email as HTMLInputElement);
   }
 
   // Password validation
-  if (!password||password.length > 20 || password.length < 1) {
+  if (!password || password.length > 20 || password.length < 1) {
     isValid = false;
-    // @ts-expect-error
-    showError(form.password, "Wrong password");
+    showError(form.password as HTMLInputElement, "Wrong password");
   } else {
-    // @ts-expect-error
-    hideError(form.password);
+    hideError(form.password as HTMLInputElement);
   }
 
   // If validation passes, proceed with login
@@ -47,16 +47,5 @@ form.addEventListener("submit", async (event) => {
       console.error("Login error:", error);
       alert("Error logging in. Please try again.");
     }
-  }
-
-  function showError(input, message){
-    const errorElement = input.nextElementSibling;
-  errorElement.textContent = message;
-  errorElement.style.display = "block";
-  }
-
-  function hideError(input) {
-    const errorElement = input.nextElementSibling;
-    errorElement.style.display = "none";
   }
 });
