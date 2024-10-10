@@ -9,6 +9,7 @@ import { ApiError } from "../../common/api-error.js";
 import { connect, disconnect } from "../../databases/connection.js";
 import upload from "../../middlewares/image-middleware.js";
 import passport from "passport";
+import { z } from "zod";
 export const destinationRouter = express.Router();
 
 destinationRouter.get("/destinations", async (_req, res, next) => {
@@ -31,6 +32,33 @@ destinationRouter.get("/destinations", async (_req, res, next) => {
   } catch (error) {
     logger.error("Error retrieving destinations", { error });
     next(new ApiError(500, "Error retrieving destinations"));
+  }
+});
+
+destinationRouter.get("/destinations/:id", async (req, res, next) => {
+  try {
+    try {
+      var { id } = z.object({ id: z.string() }).parse(req.params);
+    } catch (error) {
+      throw new ApiError(400, error);
+    }
+
+    await connect();
+    const destination = await destinationModel.findById(id);
+    if (!destination) {
+      throw new ApiError(404, "Destination not found");
+    }
+    res.json(destination);
+  } catch (error) {
+    logger.error("Error retrieving destination", error);
+
+    if (error instanceof ApiError) {
+      return next(error);
+    }
+
+    next(new ApiError(500, "Error retrieving destination"));
+  } finally {
+    await disconnect();
   }
 });
 

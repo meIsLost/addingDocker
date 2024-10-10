@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Destination</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+
+  <body>
+    <header class="flex justify-between items-center w-screen p-4 border-b">
+      <a
+        href="/"
+        class="italic font-medium text-lg text-neutral-800 hover:text-neutral-900"
+        >Travel destinations
+      </a>
+      <nav class="flex gap-4 items-center">
+        <a
+          href="/"
+          class="text-neutral-800 hover:text-neutral-900 underline underline-offset-2"
+          >Destinations
+        </a>
+        <div id="header-buttons" class="flex gap-2 items-center"></div>
+      </nav>
+    </header>
+
+    <div class="bg-gray-50 flex justify-center items-center min-h-screen">
+      <div class="bg-white shadow-md rounded-lg max-w-lg w-full p-8">
+        <h2 class="text-2xl font-bold text-center text-forestGreen mb-6">
+          Add new destination
+        </h2>
+        <form id="destination-form" method="POST" class="flex flex-col gap-4">
+          <div>
+            <label for="title" class="block text-sm font-medium text-gray-700"
+              >Destination title
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              placeholder="Enter destination title"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="location"
+              class="block text-sm font-medium text-gray-700"
+              >Location
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              placeholder="Enter location"
+              required
+            />
+          </div>
+          <div>
+            <label for="country" class="block text-sm font-medium text-gray-700"
+              >Country
+            </label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              placeholder="Enter country"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="start-date"
+              class="block text-sm font-medium text-gray-700"
+              >Start date
+            </label>
+            <input
+              type="date"
+              id="start-date"
+              name="startDate"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="end-date"
+              class="block text-sm font-medium text-gray-700"
+              >End date
+            </label>
+            <input
+              type="date"
+              id="end-date"
+              name="endDate"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700"
+              >Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-forestGreen focus:border-forestGreen sm:text-sm"
+              placeholder="Enter description"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label for="image" class="block text-sm font-medium text-gray-700"
+              >Image
+            </label>
+            <input type="file" id="image" name="image" accept="image/*" />
+          </div>
+          <div class="mt-6">
+            <button
+              type="submit"
+              class="w-full bg-forestGreen text-white py-3 px-4 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-forestGreen"
+            >
+              Submit destination
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./src/app/update/index.ts"></script>
+    <script type="module" src="./src/app/header.ts"></script>
+  </body>
+</html>

@@ -8,11 +8,27 @@ export const destinationsApi = {
     return data;
   },
 
+  async getDestination(id: string): Promise<Destination> {
+    const response = await fetch(`/v1/destinations/${id}`);
+    const data = await response.json<Destination>();
+    return data;
+  },
+
   async deleteDestination(id: string): Promise<{ message: string }> {
     const response = await fetch(`/v1/destinations/${id}`, {
       method: "DELETE",
-    }).then((res) => res.json<{ message: "Deleted" }>());
+      headers: {
+        Bearer: "Bearer " + localStorage.getItem("token"),
+      },
+    });
 
-    return response;
+    if (!response.ok) {
+      if (response.status === 401) {
+        alert("Unauthorized");
+      }
+      throw new Error("Failed to delete destination");
+    }
+
+    return await response.json<{ message: "Deleted" }>();
   },
 } as const;

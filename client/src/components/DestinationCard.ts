@@ -34,13 +34,13 @@ export function DestinationCard(destination: Destination) {
     </div>
     ${isLoggedIn()
       ? html` <div class="flex flex-col gap-1">
-          <button
-            onclick="window.location.href='/update?${destination._id}'"
-            class="border px-2 py-1.5 rounded-md text-xs font-medium"
+          <a
+            href="/update?id=${destination._id}"
+            class="border px-2 py-1.5 rounded-md text-xs font-medium inline-block text-center"
             id="updateBtn-${destination._id}"
           >
             Update
-          </button>
+          </a>
           <button
             class="border border-red-500/30 bg-red-100/20 text-red-900 font-medium px-2 py-1.5 rounded-md text-xs"
             id="deleteBtn-${destination._id}"
