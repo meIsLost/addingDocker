@@ -28,7 +28,6 @@ destinationRouter.get("/destinations", async (_req, res, next) => {
       destinations = await destinationModel.find();
     }
     console.timeEnd();
-    logger.info("getAllDestinations: ", destinations);
     res.json(destinations);
   } catch (error) {
     logger.error("Error retrieving destinations", { error });
@@ -88,7 +87,6 @@ destinationRouter.post(
       const newDestination = new destinationModel(validatedData);
       await newDestination.save();
 
-      logger.info("Destination created: ", newDestination);
       res.status(201).json({
         message: "Destination created successfully",
         destination: newDestination,

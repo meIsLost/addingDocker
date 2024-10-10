@@ -9,6 +9,7 @@ export default defineConfig({
         changeOrigin: true, // Needed for virtual hosted sites
         secure: false, // Allow HTTP for development
       },
+      '/uploads': 'http://localhost:8080',
     },
   },
   build: {
