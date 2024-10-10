@@ -1,13 +1,15 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig({
+  plugins: [mkcert()],
   server: {
     proxy: {
       "/v1": {
-        target: "http://localhost:8080", // Your backend
-        changeOrigin: true, // Needed for virtual hosted sites
-        secure: false, // Allow HTTP for development
+        target: "https://localhost:8080",
+        changeOrigin: true,
+        secure: false, // Disable SSL verification for the proxy
       },
       '/uploads': 'http://localhost:8080',
     },

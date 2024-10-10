@@ -7,15 +7,14 @@ import {
 import { logger } from "../../common/logger.js";
 import { ApiError } from "../../common/api-error.js";
 import { connect, disconnect } from "../../databases/connection.js";
-import upload from "../../middlewares/image-middleware.js";
 import passport from "passport";
 import { z } from "zod";
 
 export const destinationRouter = express.Router();
 
-destinationRouter.get("/destinations", async (_req, res, next) => {
+destinationRouter.get("/destinations", async (req, res, next) => {
   try {
-    const queryParams = paramQueryValidator.parse(_req.query);
+    const queryParams = paramQueryValidator.parse(req.query);
     await connect();
     let destinations = [];
     console.time();
@@ -28,6 +27,7 @@ destinationRouter.get("/destinations", async (_req, res, next) => {
       destinations = await destinationModel.find();
     }
     console.timeEnd();
+    logger.info("getAllDestinations: ", destinations);
     res.json(destinations);
   } catch (error) {
     logger.error("Error retrieving destinations", { error });
@@ -48,6 +48,7 @@ destinationRouter.get("/destinations/:id", async (req, res, next) => {
     if (!destination) {
       throw new ApiError(404, "Destination not found");
     }
+
     res.json(destination);
   } catch (error) {
     logger.error("Error retrieving destination", error);
@@ -62,47 +63,34 @@ destinationRouter.get("/destinations/:id", async (req, res, next) => {
   }
 });
 
-destinationRouter.post(
-  "/destinations",
-  upload.single("image"),
-  async (req, res, next) => {
+destinationRouter.post("/destinations", async (req, res, next) => {
+  try {
     try {
-      await connect();
-      const { title, location, country, startDate, endDate, description } =
-        req.body;
-      const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
-      const destinationData = {
-        title,
-        location,
-        country,
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-        description,
-        imageUrl,
-      };
-
-      const validatedData = destinationSchemaValidator.parse(destinationData);
-
-      const newDestination = new destinationModel(validatedData);
-      await newDestination.save();
-
-      res.status(201).json({
-        message: "Destination created successfully",
-        destination: newDestination,
-      });
+      var body = destinationSchemaValidator.parse(req.body);
     } catch (error) {
-      logger.error("Error creating destination", error);
-      next(new ApiError(500, "Error creating destination"));
-    } finally {
-      await disconnect();
+      throw new ApiError(400, error);
     }
-  },
-);
+
+    await connect();
+
+    const newDestination = await destinationModel.create({ ...body });
+
+    logger.info("Destination created: ", newDestination);
+    res.status(201).json({
+      message: "Destination created successfully",
+      destination: newDestination,
+    });
+  } catch (error) {
+    logger.error("Error creating destination", error);
+    next(new ApiError(500, "Error creating destination"));
+  } finally {
+    await disconnect();
+  }
+});
 
 destinationRouter.put(
   "/destinations/:id",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   async (req, res, next) => {
     try {
       await connect();

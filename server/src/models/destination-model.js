@@ -1,10 +1,16 @@
+import { createId } from "@paralleldrive/cuid2";
 import mongoose from "mongoose";
 import { z } from "zod";
 
 export const destinationSchema = new mongoose.Schema({
   _id: {
-    type: mongoose.Schema.Types.ObjectId,  
+    type: mongoose.Schema.Types.ObjectId,
     auto: true,
+  },
+  id: {
+    type: String,
+    required: true,
+    default: createId(),
   },
   title: {
     type: String,

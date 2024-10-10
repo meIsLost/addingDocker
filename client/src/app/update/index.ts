@@ -9,6 +9,7 @@ const destinationForm = document.querySelector<
     endDate: HTMLInputElement;
     description: HTMLInputElement;
     country: HTMLInputElement;
+    imageUrl: HTMLInputElement;
   }
 >("#destination-update-form")!;
 
@@ -21,7 +22,6 @@ async function fetchDestination() {
 
     const destination = await destinationsApi.getDestination(id);
 
-    console.log(destination);
     destinationForm.location.value = destination.location;
     destinationForm.title.value = destination.title;
     destinationForm.startDate.value = new Date(destination.startDate)
@@ -32,6 +32,7 @@ async function fetchDestination() {
       .split("T")[0];
     destinationForm.description.value = destination.description;
     destinationForm.country.value = destination.country;
+    destinationForm.imageUrl.value = destination.imageUrl;
   } catch (error) {
     console.error("Error fetching destination", error);
   }
@@ -60,7 +61,7 @@ destinationForm.addEventListener("submit", async (event) => {
     alert("Destination updated successfully");
 
     // add a button to the form to redirect to the home page
-    const homeButton = document.getElementById("redirect")!;
+    const homeButton = document.getElementById("redirect-btn")!;
     homeButton.onclick = () => (window.location.href = "/");
     homeButton.classList.remove("hidden");
   } catch (error) {

@@ -13,6 +13,8 @@ import { rateLimiter } from "./src/common/rate-limit.js";
 import { errorHandlerMiddleware } from "./src/middlewares/error-handler-middleware.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import mkcert from "mkcert";
+import https from "https";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,7 +22,20 @@ const __dirname = dirname(__filename);
 const PORT = env("PORT");
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const ca = await mkcert.createCA({
+  organization: "LMAO",
+  countryCode: "US",
+  state: "California",
+  locality: "San Francisco",
+  validity: 365,
+});
+const cert = await mkcert.createCert({
+  domains: ["localhost"],
+  validity: 365,
+  ca,
+});
+
+app.use(cors({ origin: "https://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(rateLimiter);
@@ -45,4 +60,14 @@ app.use(errorHandlerMiddleware);
 app.use(loggerMiddleware);
 app.use(timeoutMiddleware);
 
-app.listen(PORT, () => console.log("Port is running on", PORT));
+https
+  .createServer(
+    {
+      key: cert.key,
+      cert: cert.cert,
+    },
+    app,
+  )
+  .listen(PORT, () => {
+    console.log(`Server running on https://localhost:${PORT}`);
+  });

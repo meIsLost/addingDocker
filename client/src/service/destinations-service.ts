@@ -1,11 +1,10 @@
 import { type Destination } from "../types/types";
+import { getAuthToken } from "../util/auth";
 
 export const destinationsApi = {
   async getDestinations(): Promise<Destination[]> {
     const response = await fetch("/v1/destinations");
-    const data = await response.json<Destination[]>();
-    console.log(data);
-    return data;
+    return await response.json<Destination[]>();
   },
 
   async getDestination(id: string): Promise<Destination> {
@@ -19,7 +18,7 @@ export const destinationsApi = {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        Authorization: `Bearer ${getAuthToken()}`,
       },
     });
 
@@ -38,7 +37,7 @@ export const destinationsApi = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        Authorization: `Bearer ${getAuthToken()}`,
       },
       body: JSON.stringify(destination),
     });
@@ -49,5 +48,24 @@ export const destinationsApi = {
       }
       throw new Error("Failed to update destination");
     }
+  },
+
+  async createDestination(
+    destination: Omit<Destination, "_id" | "id" | "imageUrl">,
+  ) {
+    const response = await fetch("/v1/destinations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+      body: JSON.stringify(destination),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create destination");
+    }
+
+    return await response.json<{ message: "Created" }>();
   },
 } as const;

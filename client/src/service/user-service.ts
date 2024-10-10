@@ -14,8 +14,6 @@ export const userApi = {
       credentials: "include", // Ensure cookies are sent with the request
     });
 
-    console.log("Sign up response:", response);
-
     if (!response.ok) {
       const errorResponse = await response.json<Error>();
       console.error("Login failed:", errorResponse.message);
@@ -23,7 +21,6 @@ export const userApi = {
 
     const result = await response.json<{ message: string; token: string }>();
     console.log("Login successful");
-    localStorage.setItem("authToken", result.token.replace("Bearer ", ""));
     return { message: result.message };
   },
 } as const;
