@@ -101,13 +101,64 @@ destinationRouter.post(
   },
 );
 
+destinationRouter.put(
+  "/destinations/:id",
+  // upload.single("image"),
+  passport.authenticate("jwt", { session: false }),
+  async (req, res, next) => {
+    try {
+      await connect();
+      try {
+        var { id } = z.object({ id: z.string() }).parse(req.params);
+        var validatedData = z
+          .object(destinationSchemaValidator.shape)
+          .partial()
+          .parse(destinationData);
+      } catch (error) {
+        throw new ApiError(400, error);
+      }
+
+      const destination = await destinationModel.findByIdAndUpdate(
+        id,
+        validatedData,
+        // { new: true },
+      );
+
+      if (!destination) {
+        throw new ApiError(404, "Destination not found");
+      }
+
+      logger.info("Destination updated: ", destination);
+      res.json({
+        message: "Destination updated successfully",
+        destination,
+      });
+    } catch (error) {
+      logger.error("Error updating destination", error);
+
+      if (error instanceof ApiError) {
+        return next(error);
+      }
+
+      next(new ApiError(500, "Error updating destination"));
+    } finally {
+      await disconnect();
+    }
+  },
+);
+
 destinationRouter.delete(
   "/destinations/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res, next) => {
     try {
+      try {
+        var { id } = z.object({ id: z.string() }).parse(req.params);
+      } catch (error) {
+        throw new ApiError(400, error);
+      }
+
       await connect();
-      const { id } = req.params;
       const destination = await destinationModel.findByIdAndDelete(id);
       if (!destination) {
         throw new ApiError(404, "Destination not found");

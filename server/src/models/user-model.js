@@ -6,6 +6,10 @@ import { z } from "zod";
 export const userSchema = new mongoose.Schema(
   {
     _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      auto: true,
+    },
+    id: {
       type: String,
       required: true,
       unique: true,

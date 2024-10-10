@@ -14,6 +14,8 @@ export const userApi = {
       credentials: "include", // Ensure cookies are sent with the request
     });
 
+    console.log("Sign up response:", response);
+
     if (!response.ok) {
       const errorResponse = await response.json<Error>();
       console.error("Login failed:", errorResponse.message);

@@ -6,6 +6,8 @@ import { logger } from "../../common/logger.js";
 import { ApiError } from "../../common/api-error.js";
 import { getEmailFromParams } from "./lib/get-email.js";
 import { env } from "../../common/env.js";
+import mongoose from "mongoose";
+import { createId } from "@paralleldrive/cuid2";
 
 export const userRouter = express.Router();
 
@@ -65,7 +67,7 @@ userRouter.post("/users", async (req, res, next) => {
       return res.status(409).json({ message: "User already exists" });
     }
 
-    const newUser = await userModel.create(body);
+    const newUser = await userModel.create({ ...body, id: createId() });
 
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
@@ -75,12 +77,12 @@ userRouter.post("/users", async (req, res, next) => {
 
     logger.info("User created and logged in", { email: newUser.email });
 
-    res.cookie("authToken", token, {
-      httpOnly: true,
-      secure: false, // Don't use Secure in development (HTTP)
-      sameSite: "Lax", // Use 'Lax' to allow cookies in first-party contexts
-      maxAge: 3600 * 1000, // 1 hour expiration
-    });
+    // res.cookie("authToken", token, {
+    //   httpOnly: true,
+    //   secure: false, // Don't use Secure in development (HTTP)
+    //   sameSite: "Lax", // Use 'Lax' to allow cookies in first-party contexts
+    //   maxAge: 3600 * 1000, // 1 hour expiration
+    // });
     res
       .status(201)
       .json({ message: "User registered", token: "Bearer " + token });

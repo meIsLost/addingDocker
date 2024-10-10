@@ -1,4 +1,9 @@
 import { destinationsApi } from "../../service/destinations-service";
+import { type Destination } from "../../types/types";
+
+const destinationForm = document.querySelector<HTMLFormElement>(
+  "#destination-update-form",
+)!;
 
 async function fetchDestination() {
   try {
@@ -8,9 +13,6 @@ async function fetchDestination() {
     }
 
     const destination = await destinationsApi.getDestination(id);
-
-    const destinationForm =
-      document.querySelector<HTMLFormElement>("#destination-form")!;
 
     console.log(destination);
     destinationForm.location.value = destination.location;
@@ -27,5 +29,33 @@ async function fetchDestination() {
     console.error("Error fetching destination", error);
   }
 }
+
+destinationForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const formData = new FormData(destinationForm);
+
+  const id = new URLSearchParams(window.location.search).get("id");
+  if (!id) {
+    throw new Error("No destination ID provided");
+  }
+
+  const destination = {
+    location: formData.get("location") as string,
+    title: formData.get("title") as string,
+    startDate: formData.get("startDate") as string,
+    endDate: formData.get("endDate") as string,
+    description: formData.get("description") as string,
+    country: formData.get("country") as string,
+  } satisfies Partial<Destination>;
+
+  try {
+    await destinationsApi.updateDestination(id, destination);
+    alert("Destination updated successfully");
+    // window.location.href = "/";
+  } catch (error) {
+    console.error("Error updating destination", error);
+    alert("Failed to update destination. Please try again.");
+  }
+});
 
 await fetchDestination();
