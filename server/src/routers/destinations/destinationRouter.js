@@ -10,6 +10,7 @@ import { connect, disconnect } from "../../databases/connection.js";
 import upload from "../../middlewares/image-middleware.js";
 import passport from "passport";
 import { z } from "zod";
+
 export const destinationRouter = express.Router();
 
 destinationRouter.get("/destinations", async (_req, res, next) => {
@@ -103,8 +104,7 @@ destinationRouter.post(
 
 destinationRouter.put(
   "/destinations/:id",
-  // upload.single("image"),
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   async (req, res, next) => {
     try {
       await connect();
@@ -113,7 +113,7 @@ destinationRouter.put(
         var validatedData = z
           .object(destinationSchemaValidator.shape)
           .partial()
-          .parse(destinationData);
+          .parse(req.body);
       } catch (error) {
         throw new ApiError(400, error);
       }
@@ -121,7 +121,7 @@ destinationRouter.put(
       const destination = await destinationModel.findByIdAndUpdate(
         id,
         validatedData,
-        // { new: true },
+        { new: true },
       );
 
       if (!destination) {

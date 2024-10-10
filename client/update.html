@@ -27,7 +27,7 @@
     <div class="bg-gray-50 flex justify-center items-center min-h-screen">
       <div class="bg-white shadow-md rounded-lg max-w-lg w-full p-8">
         <h2 class="text-2xl font-bold text-center text-forestGreen mb-6">
-          Add new destination
+          Update destination
         </h2>
         <form id="destination-update-form" class="flex flex-col gap-4">
           <div>
@@ -121,12 +121,19 @@
             </label>
             <input type="file" id="image" name="image" accept="image/*" />
           </div>
-          <div class="mt-6">
+          <div class="flex flex-col gap-1">
             <button
               type="submit"
-              class="w-full bg-forestGreen text-white py-3 px-4 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-forestGreen"
+              class="w-full bg-forestGreen text-white py-3 px-4 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-forestGreen"
             >
               Submit destination
+            </button>
+            <button
+              id="redirect"
+              type="button"
+              class="hidden w-full border-2 border-forestGreen/60 py-3 px-4 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-forestGreen"
+            >
+              Back to destinations
             </button>
           </div>
         </form>

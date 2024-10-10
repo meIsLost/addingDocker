@@ -1,9 +1,16 @@
 import { destinationsApi } from "../../service/destinations-service";
 import { type Destination } from "../../types/types";
 
-const destinationForm = document.querySelector<HTMLFormElement>(
-  "#destination-update-form",
-)!;
+const destinationForm = document.querySelector<
+  HTMLFormElement & {
+    location: HTMLInputElement;
+    title: HTMLInputElement;
+    startDate: HTMLInputElement;
+    endDate: HTMLInputElement;
+    description: HTMLInputElement;
+    country: HTMLInputElement;
+  }
+>("#destination-update-form")!;
 
 async function fetchDestination() {
   try {
@@ -51,7 +58,11 @@ destinationForm.addEventListener("submit", async (event) => {
   try {
     await destinationsApi.updateDestination(id, destination);
     alert("Destination updated successfully");
-    // window.location.href = "/";
+
+    // add a button to the form to redirect to the home page
+    const homeButton = document.getElementById("redirect")!;
+    homeButton.onclick = () => (window.location.href = "/");
+    homeButton.classList.remove("hidden");
   } catch (error) {
     console.error("Error updating destination", error);
     alert("Failed to update destination. Please try again.");
