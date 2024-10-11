@@ -5,7 +5,10 @@ if (isLoggedIn()) {
   document.querySelector("#header-buttons")!.innerHTML = html`
     <button
       class="border px-3.5 py-0.5 rounded-md font-medium hover:bg-slate-50"
-      onclick="document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; window.location.href = '/';"
+      onclick="
+      if (!confirm('Are you sure you want to log out?')) return;
+      document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; window.location.href = '/';
+      "
     >
       <a>Log out</a>
     </button>
