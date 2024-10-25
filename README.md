@@ -35,6 +35,23 @@ Run this command in the root directory. It will start both backend and frontend 
 ```sh
 npm run dev
 ```
+# Containerized Web Application
+
+This repository also contains a web application with a client and server, set up to run in Docker containers.
+
+## Getting Started
+
+### 1. Clone the Repository
+When Clone the repository to your local machine:
+Make sure you have a .env file for the server.You can create a .env file in the server directory with the following the env example file
+
+### 1. Build the Images
+Build the Docker images for the client and server.
+
+### 1. Running the containers
+Start the containers
+Frontend: Once the containers are running, you can access the frontend at http://localhost:5173.
+Backend: The backend will be running on http://localhost:8080.
 
 ## Authors
 
