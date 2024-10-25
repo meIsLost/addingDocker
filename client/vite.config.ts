@@ -5,6 +5,7 @@ import mkcert from "vite-plugin-mkcert";
 export default defineConfig({
   plugins: [mkcert()],
   server: {
+    host:'0.0.0.0',
     proxy: {
       "/v1": {
         target: "https://localhost:8080",

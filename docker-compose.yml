@@ -1,0 +1,21 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  server:
+    build:
+      context: ./server
+    env_file:
+      - ./server/.env # Pointing .env file in server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
